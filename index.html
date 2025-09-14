@@ -776,6 +776,27 @@ form.addEventListener('submit', async (e) => {
     </div>
     <p>&copy; 2025 MEDAR Studio. All rights reserved.</p>
   </footer>
+  
+  <script>
+const startProjectBtn = document.getElementById('startProjectBtn');
+const requestQuoteBtn = document.getElementById('requestQuoteBtn');
+const contactSection = document.getElementById('contact');
+const navContactLink = document.querySelector('.nav-contact-link');
+
+function showForm() {
+  if (!contactSection.classList.contains('show')) {
+    contactSection.classList.add('show');
+    contactSection.scrollIntoView({behavior: 'smooth'});
+    navContactLink.style.display = 'inline'; // show the nav link
+  } else {
+    contactSection.scrollIntoView({behavior: 'smooth'});
+  }
+}
+
+startProjectBtn.addEventListener('click', showForm);
+requestQuoteBtn.addEventListener('click', showForm);
+</script>
+
 
   <script>
     // Hamburger toggle
@@ -1062,6 +1083,7 @@ carousel3d.parentElement.addEventListener('touchend', () => {
 </script>
 </body>
 </html>
+
 
 
 
