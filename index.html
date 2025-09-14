@@ -7,113 +7,601 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-    body { font-family: 'Poppins', sans-serif; background: #fff; color: #000; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
-    header { display: flex; justify-content: space-between; align-items: center; padding: 20px 10%; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1100; }
-    header .logo { font-weight: 700; color: #d90000; cursor: pointer; }
-    nav { display: flex; gap: 30px; }
-    nav a { text-decoration: none; color: #333; font-weight: 500; transition: color 0.3s ease; cursor: pointer; }
-    nav a:hover, nav a:focus { color: #d90000; outline: none; }
-    .hero { text-align: center; padding: 60px 20px; }
-    .hero h1 { font-size: 2.5rem; }
-    .hero span { color: #d90000; }
-    .hero p { margin-top: 10px; }
-    .hero .btn { margin-top: 20px; background-color: #d90000; color: #fff; padding: 12px 25px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: background-color 0.3s ease; }
-    .hero .btn:hover { background-color: #a30000; }
-
-    .stats { display: flex; justify-content: center; gap: 40px; padding: 30px 0; font-weight: bold; flex-wrap: nowrap; }
-    .stats div { text-align: center; width: 140px; }
-
-    #portfolio { background: #f9f9f9; padding: 40px 20px; text-align: center; }
-    .carousel-3d-container { perspective: 1200px; width: 320px; height: 400px; margin: 40px auto 60px auto; position: relative; user-select: none; transition: transform 0.3s ease; cursor: grab; }
-    .carousel-3d-container:hover { transform: scale(1.35); cursor: pointer; }
-    .carousel-3d { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 1s ease; }
-    .carousel-3d .card { position: absolute; width: 200px; height: 250px; left: 50%; top: 50%; transform-style: preserve-3d; margin-left: -100px; margin-top: -125px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); overflow: hidden; background: #fff; cursor: grab; transition: box-shadow 0.3s ease, filter 0.3s ease; filter: blur(2px); user-select: none; }
-    .carousel-3d .card.active { filter: none; cursor: pointer; }
-    .carousel-3d .card img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; user-select: none; }
-    .carousel-buttons { width: 320px; margin: 0 auto 20px auto; display: flex; justify-content: center; gap: 30px; }
-    .carousel-buttons button { background: #d90000; border: none; color: #fff; font-size: 28px; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; transition: background 0.3s ease; user-select: none; }
-    .carousel-buttons button:hover { background: #a30000; }
-    #discoverallprjctsBtn { margin-top: 20px; background-color: #d90000; color: #fff; border: none; padding: 14px 36px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease; font-size: 1.1rem; }
-    #discoverallprjctsBtn:hover { background-color: #a30000; }
-
-    .services { background: #f9f9f9; padding: 60px 20px; text-align: center; }
-    .services h2 { margin-bottom: 10px; }
-    .services p.description { margin-bottom: 30px; color: #555; }
-    .service-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1000px; margin: auto; }
-    .service-box { background: #fff; border: 1px solid #eee; padding: 20px; border-radius: 8px; width: 250px; text-align: left; transition: all 0.3s ease; transform: scale(1); }
-    .service-box i { color: #d90000; font-size: 24px; margin-bottom: 10px; display: block; }
-    .service-box h4 { margin-bottom: 10px; }
-    .service-box p { text-align: left; }
-    .service-box:hover { background-color: #d90000; color: #fff; transform: scale(1.05); }
-    .service-box:hover i, .service-box:hover h4, .service-box:hover p { color: #fff; }
-
-    #letsWorkTogether { max-width: 600px; margin: 40px auto 15px auto; text-align: center; }
-    #letsWorkTogether h3 { font-size: 2rem; font-weight: 700; color: #d90000; margin-bottom: 6px; }
-    #letsWorkTogether p { font-size: 1.1rem; color: #333; }
-    #requestQuoteBtn { margin-top: 20px; background-color: #d90000; color: #fff; border: none; padding: 14px 36px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease; font-size: 1.1rem; }
-    #requestQuoteBtn:hover { background-color: #a30000; }
-
-    main { padding: 40px 10%; background: #f9f9f9; }
-    h1.form-title { text-align: center; margin-bottom: 30px; color: #d90000; font-weight: 700; font-size: 2rem; }
-    form { background: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.144); max-width: 600px; margin: auto; display: flex; flex-direction: column; gap: 15px; }
-    form label { font-weight: 600; margin-bottom: 8px; }
-    form input, form select, form textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
-    input[type="file"] { border: 2px dashed #ccc; padding: 20px; background-color: #fafafa; cursor: pointer; transition: border 0.3s ease; }
-    input[type="file"]:hover { border-color: #d90000; }
-    .services-grid { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 15px; }
-    .services-grid label { flex: 1 1 calc(50% - 15px); background: #eee; border-radius: 8px; padding: 12px 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
-    .services-grid input { display: none; }
-    .services-grid input:checked + span { background: #d90000; color: #fff; border-radius: 6px; padding: 12px 10px; }
-
-    button[type="submit"] { background-color: #d90000; color: #fff; border: none; padding: 14px 28px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; transition: background 0.3s ease; }
-    button[type="submit"]:hover { background: #a30000; }
-
-    #confirmationMessage { max-width: 600px; margin: 20px auto 0 auto; background: #d90000; color: white; padding: 30px; border-radius: 10px; text-align: center; font-weight: 700; font-size: 1.3rem; display: none; }
-
-    footer { background: #111; color: #bbb; padding: 40px 10%; text-align: center; margin-top: auto; }
-    footer h4 { color: #fff; margin-bottom: 18px; cursor: pointer; transition: color 0.3s ease; }
-    footer h4:hover { color: #d90000; }
-    footer a { color: #bbb; text-decoration: none; margin: 0 12px; transition: color 0.3s ease; }
-    footer a:hover { color: #d90000; }
-    .socials { margin: 15px 0; }
-    .socials i { margin: 0 12px; color: #bbb; font-size: 22px; transition: color 0.3s ease; }
-
-    .phone-link { color: #bbb; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; font-size: 1.1rem; margin-top: 12px; transition: color 0.3s ease; }
-    .phone-link:hover { color: #d90000; }
-
-    .hamburger { display: none; flex-direction: column; justify-content: space-between; width: 28px; height: 22px; cursor: pointer; z-index: 1200; }
-    .hamburger span { height: 3px; background: #d90000; border-radius: 2px; transition: all 0.3s ease; }
-
-    @media (max-width: 768px) {
-      header { padding: 15px 5%; }
-      nav { position: fixed; top: 0; right: -100%; height: 100vh; width: 240px; background: #fff; flex-direction: column; padding: 80px 20px 20px 20px; gap: 25px; box-shadow: -3px 0 15px rgba(0,0,0,0.1); transition: right 0.35s cubic-bezier(0.77, 0, 0.175, 1); z-index: 1150; }
-      nav.open { right: 0; }
-      nav a { font-size: 1.1rem; font-weight: 600; }
-      .hamburger { display: flex; }
-      .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-      .hamburger.open span:nth-child(2) { opacity: 0; }
-      .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-      .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; padding: 30px 10%; }
-      main { padding: 20px 5%; }
-      form { padding: 20px; }
+    * {
+      margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fff;
+      color: #000;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 10%;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1100;
+    }
+    header .logo {
+      font-weight: 700;
+      color: #d90000;
+      cursor: pointer;
+    }
+    nav {
+      display: flex;
+      gap: 30px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+    nav a:hover,
+    nav a:focus {
+      color: #d90000;
+      outline: none;
+    }
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+    .hero span {
+      color: #d90000;
+    }
+    .hero p {
+      margin-top: 10px;
+    }
+    .hero .btn {
+      margin-top: 20px;
+      background-color: #d90000;
+      color: #fff;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .hero .btn:hover,
+    .work button:hover {
+      background-color: #a30000;
     }
 
-    #contact { display: none; }
-    #contact.show { display: block; animation: fadeIn 0.5s ease forwards; background: #fff; }
-    @keyframes fadeIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+    /* === Stats === */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 30px 0;
+      font-weight: bold;
+      flex-wrap: nowrap;
+    }
+    .stats div {
+      text-align: center;
+      width: 140px;
+    }
+
+    /* === Portfolio Carousel === */
+    #portfolio {
+      background: #f9f9f9;
+      padding: 40px 20px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .carousel-3d-container {
+      perspective: 1200px;
+      width: 320px;
+      height: 400px;
+      margin: 40px auto 60px auto;
+      position: relative;
+      user-select: none;
+      transition: transform 0.3s ease;
+      cursor: grab;
+    }
+    .carousel-3d-container:hover {
+      transform: scale(1.35);
+      cursor: pointer;
+    }
+    .carousel-3d {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s ease;
+    }
+    .carousel-3d .card {
+      position: absolute;
+      width: 200px;
+      height: 250px;
+      left: 50%;
+      top: 50%;
+      transform-style: preserve-3d;
+      margin-left: -100px;
+      margin-top: -125px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      overflow: hidden;
+      background: #fff;
+      cursor: grab;
+      transition: box-shadow 0.3s ease, filter 0.3s ease;
+      filter: blur(2px);
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+    .carousel-3d .card.active {
+      filter: none;
+      cursor: pointer;
+    }
+    .carousel-3d .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      user-select: none;
+    }
+    /* Buttons for prev/next */
+    .carousel-buttons {
+      width: 320px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+    .carousel-buttons button {
+      background: #d90000;
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    .carousel-buttons button:hover {
+      background: #a30000;
+    }
+
+    /* === Services === */
+    .services {
+      background: #f9f9f9;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .services h2 {
+      margin-bottom: 10px;
+    }
+    .services p.description {
+      margin-bottom: 30px;
+      color: #555;
+    }
+    .service-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .service-box {
+      background: #fff;
+      border: 1px solid #eee;
+      padding: 20px;
+      border-radius: 8px;
+      width: 250px;
+      text-align: left;
+      transition: all 0.3s ease;
+      transform: scale(1);
+    }
+    .service-box i {
+      color: #d90000;
+      font-size: 24px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .service-box h4 {
+      margin-bottom: 10px;
+    }
+    .service-box p {
+      text-align: left;
+    }
+    .service-box:hover {
+      background-color: #d90000;
+      color: #fff;
+      transform: scale(1.05);
+    }
+    .service-box:hover i,
+    .service-box:hover h4,
+    .service-box:hover p {
+      color: #fff;
+    }
+
+    /* New text block before Request a Quote */
+    #letsWorkTogether {
+      max-width: 600px;
+      margin: 40px auto 15px auto;
+      text-align: center;
+    }
+    #letsWorkTogether h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #d90000;
+      margin-bottom: 6px;
+    }
+    #letsWorkTogether p {
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    /* Request a Quote button below services */
+    #requestQuoteBtn {
+      margin-top: 20px;
+      background-color: #d90000;
+      color: #fff;
+      border: none;
+      padding: 14px 36px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 1.1rem;
+    }
+    #requestQuoteBtn:hover {
+      background-color: #a30000;
+    }
+
+    /* discover all projects Btn */
+    #discoverallprjctsBtn {
+      margin-top: 20px;
+      background-color: #d90000;
+      color: #fff;
+      border: none;
+      padding: 14px 36px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 1.1rem;
+    }
+    #discoverallprjctsBtn:hover {
+      background-color: #a30000;
+    }
+
+    /* === Form Section === */
+    main {
+      padding: 40px 10%;
+      background: #f9f9f9;
+    }
+    h1.form-title {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #d90000;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+    form {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.144);
+      max-width: 600px;
+      margin: auto;
+      animation: fadeIn 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      font-family: 'Poppins', sans-serif;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    form label {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: 'Poppins';
+    }
+    input[type="file"] {
+      border: 2px dashed #ccc;
+      padding: 20px;
+      background-color: #fafafa;
+      cursor: pointer;
+      transition: border 0.3s ease;
+    }
+    input[type="file"]:hover {
+      border-color: #d90000;
+    }
+    .services-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    .service-option {
+      flex: 1 1 calc(50% - 15px);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #eee;
+      border-radius: 8px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      user-select: none;
+      color: #000;
+    }
+    .service-option.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .service-option i {
+      color: #d90000;
+      font-size: 20px;
+      transition: color 0.3s ease;
+    }
+    .service-option:hover:not(.disabled) {
+      background: #d90000;
+      color: white;
+    }
+    .service-option:hover:not(.disabled) i {
+      color: white;
+    }
+    .service-option.selected {
+      background: #000;
+      color: white;
+      border-color: #000;
+    }
+    .service-option.selected i {
+      color: white;
+    }
+    .service-option input {
+      display: none;
+    }
+    .note {
+      font-size: 0.85rem;
+      color: #555;
+      margin-top: -10px;
+      margin-bottom: 15px;
+    }
+    /* New note for price */
+    .price-note {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 15px;
+    }
+    button[type="submit"] {
+      background-color: #d90000;
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      width: 100%;
+    }
+    button[type="submit"]:hover {
+      background: #a30000;
+    }
+    #confirmationMessage {
+      max-width: 600px;
+      margin: 20px auto 0 auto;
+      background: #d90000;
+      color: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.3rem;
+      animation: popIn 0.5s forwards;
+      box-shadow: 0 4px 15px rgba(217, 0, 0, 0.5);
+      display: none;
+    }
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    footer {
+      background: #111;
+      color: #bbb;
+      padding: 40px 10%;
+      text-align: center;
+      margin-top: auto;
+    }
+    footer h4 {
+      color: #fff;
+      margin-bottom: 18px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    footer h4:hover {
+      color: #d90000;
+    }
+    footer a {
+      color: #bbb;
+      text-decoration: none;
+      margin: 0 12px;
+      transition: color 0.3s ease;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    footer a:hover {
+      color: #d90000;
+    }
+    .socials {
+      margin: 15px 0;
+    }
+    .socials i {
+      margin: 0 12px;
+      color: #bbb;
+      font-size: 22px;
+      transition: color 0.3s ease;
+      vertical-align: middle;
+    }
+    .socials i:hover {
+      color: #d90000;
+    }
+
+    /* Phone icon */
+    .phone-link {
+      color: #bbb;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.1rem;
+      margin-top: 12px;
+      transition: color 0.3s ease;
+    }
+    .phone-link:hover {
+      color: #d90000;
+    }
+
+    /* === Hamburger menu === */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 1200;
+    }
+    .hamburger span {
+      height: 3px;
+      background: #d90000;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    /* Responsive mobile */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 5%;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 240px;
+        background: #fff;
+        flex-direction: column;
+        padding: 80px 20px 20px 20px;
+        gap: 25px;
+        box-shadow: -3px 0 15px rgba(0,0,0,0.1);
+        transition: right 0.35s cubic-bezier(0.77, 0, 0.175, 1);
+        z-index: 1150;
+        user-select: none;
+      }
+      nav.open {
+        right: 0;
+      }
+      nav a {
+        font-size: 1.1rem;
+        color: #333;
+        font-weight: 600;
+      }
+      nav a:hover,
+      nav a:focus {
+        color: #d90000;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .hamburger.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .hamburger.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+      /* Stats: grid 2x2 on mobile */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        padding: 30px 10%;
+      }
+      .stats div {
+        width: auto;
+      }
+      main {
+        padding: 20px 5%;
+      }
+      form {
+        padding: 20px;
+      }
+    }
+
+    /* Hide form by default */
+    #contact {
+      display: none;
+    }
+    #contact.show {
+  display: block;
+  animation: fadeIn 0.5s ease forwards;
+  background: #f9f9f9; /* carre de formulaire */
+  padding: 60px 0;   /* padding vertical, sans padding horizontal */
+  width: 100%;       /* pleine largeur */
+  box-sizing: border-box;
+  margin: 0;
+}
+
+    .footer-email {
+  color: #bbb;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.footer-email:hover {
+  color: #d90000;
+}
+
+.footer-email i {
+  margin-right: 8px;
+}
   </style>
 </head>
 <body>
-
   <header>
     <div class="logo" onclick="location.href='#'">MEDAR Studio</div>
-    <nav class="nav-links">
-      <a href="#portfolio">Portfolio</a>
-      <a href="#services">Services</a>
-      <a class="nav-contact-link" href="#contact">Contact</a>
+    <nav id="navMenu" aria-label="Primary navigation">
+      <a href="#portfolio" tabindex="0">Recent projects</a>
+      <a href="all projects.html" tabindex="0">All projects</a>
+      <a href="#services" tabindex="0">Services</a>
+      <a href="#contact" tabindex="0" class="nav-contact-link" style="display:none;">Contact</a>
     </nav>
-    <div class="hamburger">
+    <div class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false" role="button" tabindex="0">
       <span></span>
       <span></span>
       <span></span>
@@ -121,126 +609,246 @@
   </header>
 
   <section class="hero">
-    <h1>Creative <span>Design</span> Studio</h1>
-    <p>Transforming ideas into visual reality</p>
-    <button id="startProjectBtn" class="btn">Start Your Project</button>
+    <h1>Professional <span>Graphic Design</span></h1>
+    <p>Bringing your vision to life through creative design solutions.</p>
+    <button class="btn" id="startProjectBtn">Start Your Project</button>
   </section>
 
-  <section class="stats">
-    <div>
-      <h2>120+</h2>
-      <p>Projects</p>
-    </div>
-    <div>
-      <h2>80+</h2>
-      <p>Clients</p>
-    </div>
-    <div>
-      <h2>10+</h2>
-      <p>Years Experience</p>
-    </div>
+  <section class="stats" aria-label="Statistics">
+    <div><h3>30+</h3><p>Projects<br>Completed</p></div>
+    <div><h3>100%</h3><p>Client<br>Satisfaction</p></div>
+    <div><h3>10+</h3><p>Years of<br>Experience</p></div>
+    <div><h3>15</h3><p>Awards<br>Won</p></div>
   </section>
 
-  <section id="portfolio">
-    <h2>Portfolio</h2>
-    <div class="carousel-3d-container">
-      <div class="carousel-3d">
-        <div class="card active"><img src="https://picsum.photos/id/1015/200/250" alt="Project 1"></div>
-        <div class="card"><img src="https://picsum.photos/id/1016/200/250" alt="Project 2"></div>
-        <div class="card"><img src="https://picsum.photos/id/1018/200/250" alt="Project 3"></div>
-        <div class="card"><img src="https://picsum.photos/id/1020/200/250" alt="Project 4"></div>
-        <div class="card"><img src="https://picsum.photos/id/1021/200/250" alt="Project 5"></div>
-      </div>
+  <section class="portfolio" id="portfolio" aria-label="Portfolio">
+    <h2>Recent Projects</h2>
+    <div class="carousel-3d-container" aria-roledescription="carousel">
+      <div class="carousel-3d" id="carousel3d" tabindex="0" aria-live="polite"></div>
     </div>
     <div class="carousel-buttons">
-      <button id="prev">&#8249;</button>
-      <button id="next">&#8250;</button>
+      <button id="prevBtn" aria-label="Previous project"><i class="fas fa-chevron-left"></i></button>
+      <button id="nextBtn" aria-label="Next project"><i class="fas fa-chevron-right"></i></button>
     </div>
-    <button id="discoverallprjctsBtn">Discover All Projects</button>
+    <button id="discoverallprjctsBtn" aria-label="all projects">all projects</button>
   </section>
 
-  <section id="services" class="services">
-    <h2>Our Services</h2>
-    <p class="description">We offer a wide range of creative solutions</p>
-    <div class="service-grid">
-      <div class="service-box"><i class="fa-solid fa-paintbrush"></i><h4>Graphic Design</h4><p>Creative visual solutions for branding.</p></div>
-      <div class="service-box"><i class="fa-solid fa-code"></i><h4>Web Design</h4><p>Responsive websites that stand out.</p></div>
-      <div class="service-box"><i class="fa-solid fa-video"></i><h4>Video Editing</h4><p>Professional video content for marketing.</p></div>
-      <div class="service-box"><i class="fa-solid fa-camera"></i><h4>Photography</h4><p>High-quality visual content for your brand.</p></div>
+  <section class="services" id="services" aria-label="Services">
+    <h2>Services We Offer</h2>
+    <p class="description">Discover the wide range of services tailored to your needs.</p>
+    <div class="service-grid" role="list">
+      <div class="service-box"><i class="fas fa-pen-nib"></i><h4>Logo Design</h4><p>Custom logos that define your brand identity.</p></div>
+      <div class="service-box"><i class="fas fa-palette"></i><h4>Branding</h4><p>Complete branding packages for a cohesive identity.</p></div>
+      <div class="service-box"><i class="fas fa-desktop"></i><h4>Web Design</h4><p>Responsive and aesthetic websites built for your business.</p></div>
+      <div class="service-box"><i class="fas fa-print"></i><h4>Print Design</h4><p>High-quality print materials from brochures to posters.</p></div>
+      <div class="service-box"><i class="fas fa-bullhorn"></i><h4>Marketing Material</h4><p>Eye-catching marketing designs to boost your campaigns.</p></div>
+      <div class="service-box"><i class="fas fa-comments"></i><h4>Consultation</h4><p>Expert advice and guidance to plan your projects.</p></div>
     </div>
+
+    <div id="letsWorkTogether" aria-label="Work together invitation">
+      <h3>Let's Work Together</h3>
+      <p>Ready to bring your vision to life? Get in touch for a free consultation.</p>
+    </div>
+
+    <button id="requestQuoteBtn" aria-label="Request a quote">Request a Quote</button>
   </section>
 
-  <section id="letsWorkTogether">
-    <h3>Let's Work Together</h3>
-    <p>Ready to start your project? Contact us today!</p>
-    <button id="requestQuoteBtn">Request a Quote</button>
-  </section>
+  <main>
+    <section class="work" id="contact" aria-label="Contact form section" tabindex="-1">
+      <h1 class="form-title">Request Your Quote</h1>
+      <form id="quoteForm" action="https://formspree.io/f/meokznrv" method="POST" novalidate>
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="name" placeholder="Your full name" required autocomplete="name" />
 
-  <main id="contact">
-    <h1 class="form-title">Contact Us</h1>
-    <form id="quoteForm">
-      <label for="name">Full Name *</label>
-      <input type="text" id="name" name="name" required>
-      <label for="email">Email *</label>
-      <input type="email" id="email" name="email" required>
-      <label for="whatsapp">WhatsApp Number *</label>
-      <input type="tel" id="whatsapp" name="whatsapp" required>
-      <label>Services *</label>
-      <div class="services-grid">
-        <label><input type="checkbox" name="services" value="Graphic Design"><span>Graphic Design</span></label>
-        <label><input type="checkbox" name="services" value="Web Design"><span>Web Design</span></label>
-        <label><input type="checkbox" name="services" value="Video Editing"><span>Video Editing</span></label>
-        <label><input type="checkbox" name="services" value="Photography"><span>Photography</span></label>
-      </div>
-      <label for="file">Attach File</label>
-      <input type="file" id="file" name="file">
-      <label for="date">Preferred Date</label>
-      <input type="date" id="date" name="date">
-      <label for="message">Message</label>
-      <textarea id="message" name="message" rows="4"></textarea>
-      <button type="submit">Send</button>
-    </form>
-    <div id="confirmationMessage">Thank you! Your request has been sent.</div>
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" placeholder="your.email@example.com" required autocomplete="email" />
+
+        <label for="whatsapp">WhatsApp Number *</label>
+        <input type="tel" id="whatsapp" name="whatsapp" placeholder="+33 6 12 34 56 78" required pattern="^\+\d{1,3}[\d\s\-]{4,}$" autocomplete="tel" />
+        <div class="note" id="formNote">Include your country code (e.g. +33 for France)</div>
+
+        <label>Services Interested In *</label>
+        <div class="services-grid" role="group" aria-required="true" aria-label="Select one or more services">
+          <label class="service-option" tabindex="0" data-service="Logo Design">
+            <input type="checkbox" name="services" value="Logo Design" />
+            <i class="fas fa-pen-nib"></i> Logo Design
+          </label>
+          <label class="service-option" tabindex="0" data-service="Branding">
+            <input type="checkbox" name="services" value="Branding" />
+            <i class="fas fa-palette"></i> Branding
+          </label>
+          <label class="service-option" tabindex="0" data-service="Web Design">
+            <input type="checkbox" name="services" value="Web Design" />
+            <i class="fas fa-desktop"></i> Web Design
+          </label>
+          <label class="service-option" tabindex="0" data-service="Print Design">
+            <input type="checkbox" name="services" value="Print Design" />
+            <i class="fas fa-print"></i> Print Design
+          </label>
+          <label class="service-option" tabindex="0" data-service="Marketing Material">
+            <input type="checkbox" name="services" value="Marketing Material" />
+            <i class="fas fa-bullhorn"></i> Marketing Material
+          </label>
+          <label class="service-option" tabindex="0" data-service="Consultation">
+            <input type="checkbox" name="services" value="Consultation" />
+            <i class="fas fa-comments"></i> Consultation
+          </label>
+        </div>
+
+        <label for="projectDate">Preferred Project Date</label>
+        <input type="date" id="projectDate" name="projectDate" />
+
+        <div class="note">* Final project date will be confirmed after review</div>
+        <div class="price-note">* Pricing will be provided after reviewing your request</div>
+
+        <label for="projectDesc">Project Description</label>
+        <textarea id="projectDesc" name="projectDesc" rows="5" placeholder="Describe your project or needs..."></textarea>
+
+        <label for="fileUpload">Attach files (optional)</label>
+        <input type="file" id="fileUpload" name="fileUpload" multiple accept=".png,.jpg,.jpeg,.pdf,.doc,.docx" aria-describedby="fileNote" />
+        <div class="note" id="fileNote">Allowed file types: png, jpg, jpeg, pdf, doc, docx</div>
+
+        <button type="submit">Send Request</button>
+      </form>
+      <div id="confirmationMessage" role="alert" aria-live="polite">Thank you! Your request has been sent.</div>
+    </section>
   </main>
 
   <footer>
-    <h4>MEDAR Studio</h4>
-    <p>© 2025 All Rights Reserved</p>
-    <div class="socials">
-      <a href="#"><i class="fa-brands fa-facebook"></i></a>
-      <a href="#"><i class="fa-brands fa-twitter"></i></a>
-      <a href="#"><i class="fa-brands fa-instagram"></i></a>
-      <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+    <h4>Contact Us</h4>
+    <p>
+      <a class="phone-link" href="https://wa.me/212698048499" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp phone number">
+        <i class="fas fa-phone"></i> +212 698-048499
+      </a>
+    </p>
+<p>
+  <a href="mailto:mmlprod.infos@gmail.com" class="footer-email" aria-label="Envoyer un email">
+    <i class="fas fa-envelope"></i> mmlprod.infos@gmail.com
+  </a>
+</p>
+
+    <div class="socials" aria-label="Social media links">
+      <a href="https://www.behance.net/medamineamarir97" aria-label="Behance"><i class="fab fa-behance"></i></a>
+      <a href="https://www.instagram.com/med_amine_amarir?igsh=OGtyMXFub2s2YTlo" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/mohamed-amine-amarir-4b4682256?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
     </div>
-    <a href="tel:+212600000000" class="phone-link"><i class="fa-solid fa-phone"></i> +212 600 000 000</a>
+    <p>&copy; 2025 MEDAR Studio. All rights reserved.</p>
   </footer>
 
   <script>
     // Hamburger toggle
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('nav');
+    const hamburger = document.getElementById('hamburgerBtn');
+    const navMenu = document.getElementById('navMenu');
     hamburger.addEventListener('click', () => {
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+      hamburger.setAttribute('aria-expanded', !expanded);
       hamburger.classList.toggle('open');
-      navLinks.classList.toggle('open');
+      navMenu.classList.toggle('open');
+    });
+    // Keyboard toggle for hamburger
+    hamburger.addEventListener('keydown', e => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        hamburger.click();
+      }
     });
 
-    // Show contact form
+    // Show form when clicking buttons
     const startProjectBtn = document.getElementById('startProjectBtn');
     const requestQuoteBtn = document.getElementById('requestQuoteBtn');
+    const discoverallprjctsBtn = document.getElementById('discoverallprjctsBtn');
     const contactSection = document.getElementById('contact');
     const navContactLink = document.querySelector('.nav-contact-link');
 
     function showForm() {
       if (!contactSection.classList.contains('show')) {
         contactSection.classList.add('show');
+        contactSection.focus();
         navContactLink.style.display = 'inline';
       }
       contactSection.scrollIntoView({behavior: 'smooth'});
-      contactSection.focus();
     }
-
     startProjectBtn.addEventListener('click', showForm);
     requestQuoteBtn.addEventListener('click', showForm);
+
+    // Services checkbox styling toggle + consultation exclusivity
+    const serviceOptions = document.querySelectorAll('.service-option');
+    serviceOptions.forEach(option => {
+      const checkbox = option.querySelector('input[type="checkbox"]');
+      option.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleService(checkbox);
+      });
+      option.addEventListener('keydown', e => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleService(checkbox);
+        }
+      });
+    });
+
+    function toggleService(checkbox) {
+      const consultationOption = [...serviceOptions].find(opt => opt.dataset.service === "Consultation");
+      const consultationCheckbox = consultationOption.querySelector('input[type="checkbox"]');
+
+      if (checkbox === consultationCheckbox) {
+        if (checkbox.checked) {
+          checkbox.checked = false;
+          consultationOption.classList.remove('selected');
+          serviceOptions.forEach(opt => {
+            if (opt !== consultationOption) {
+              opt.classList.remove('disabled');
+              opt.querySelector('input[type="checkbox"]').disabled = false;
+            }
+          });
+        } else {
+          checkbox.checked = true;
+          consultationOption.classList.add('selected');
+          serviceOptions.forEach(opt => {
+            if (opt !== consultationOption) {
+              opt.querySelector('input[type="checkbox"]').checked = false;
+              opt.querySelector('input[type="checkbox"]').disabled = true;
+              opt.classList.add('disabled');
+              opt.classList.remove('selected');
+            }
+          });
+        }
+      } else {
+        if (checkbox.checked) {
+          checkbox.checked = false;
+          optionFromCheckbox(checkbox).classList.remove('selected');
+        } else {
+          checkbox.checked = true;
+          optionFromCheckbox(checkbox).classList.add('selected');
+          if (consultationCheckbox.checked) {
+            consultationCheckbox.checked = false;
+            consultationOption.classList.remove('selected');
+            serviceOptions.forEach(opt => {
+              opt.querySelector('input[type="checkbox"]').disabled = false;
+              opt.classList.remove('disabled');
+            });
+          }
+        }
+      }
+      updateSelectedStyles();
+    }
+
+    function optionFromCheckbox(checkbox) {
+      return [...serviceOptions].find(opt => opt.querySelector('input[type="checkbox"]') === checkbox);
+    }
+
+    function updateSelectedStyles() {
+      serviceOptions.forEach(opt => {
+        const cb = opt.querySelector('input[type="checkbox"]');
+        if (cb.checked) {
+          opt.classList.add('selected');
+        } else {
+          opt.classList.remove('selected');
+        }
+      });
+    }
+
+    updateSelectedStyles();
 
     // Form submission
     const form = document.getElementById('quoteForm');
@@ -248,52 +856,150 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (!form.checkValidity()) { form.reportValidity(); return; }
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
 
       const checkedServices = [...form.querySelectorAll('input[name="services"]:checked')];
-      if (checkedServices.length === 0) { alert('Please select at least one service.'); return; }
+      if (checkedServices.length === 0) {
+        alert('Please select at least one service.');
+        return;
+      }
 
       const formData = new FormData(form);
-      const endpoints = [
-        "https://formsubmit.co/4942efec8ebfb3559e74c9c48458d660",
-        "https://formspree.io/f/meokznrv"
-      ];
 
       try {
-        await Promise.all(endpoints.map(url => fetch(url, { method: "POST", body: formData, headers: { "Accept": "application/json" }})));
-        confirmation.style.display = "block";
-        form.reset();
-        setTimeout(() => { confirmation.style.display = "none"; }, 4000);
-      } catch (err) { alert("⚠️ Error sending your request. Please try again."); console.error(err); }
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        confirmation.style.display = 'block';
+
+        setTimeout(() => {
+          confirmation.style.display = 'none';
+          form.reset();
+          serviceOptions.forEach(opt => {
+            opt.querySelector('input[type="checkbox"]').disabled = false;
+            opt.classList.remove('disabled', 'selected');
+          });
+        }, 4000);
+      } catch (error) {
+        alert('Error sending your request. Please try again.');
+      }
     });
 
     // Carousel 3D
-    const carousel = document.querySelector('.carousel-3d');
-    const cards = Array.from(document.querySelectorAll('.carousel-3d .card'));
-    const prevBtn = document.getElementById('prev');
-    const nextBtn = document.getElementById('next');
-    let angle = 0;
-    let currentIndex = 0;
-    const cardCount = cards.length;
-    const theta = 360 / cardCount;
+const carousel3d = document.getElementById('carousel3d');
+const images = [
+  'images/16.png',
+  'images/15.png',
+  'images/14.png',
+  'images/2.png',
+  'images/3.png',
+  'images/4.png'
+];
+const cardCount = images.length;
+const theta = 360 / cardCount;
+let currentAngle = 0;
 
-    function rotateCarousel() {
-      carousel.style.transform = `translateZ(-300px) rotateY(${angle}deg)`;
-      cards.forEach((card, i) => card.classList.toggle('active', i === currentIndex));
-    }
+function createCards() {
+  carousel3d.innerHTML = '';
+  for(let i=0; i < cardCount; i++) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.transform = `rotateY(${i * theta}deg) translateZ(300px)`;
+    if(i === 0) card.classList.add('active');
+    const img = document.createElement('img');
+    img.src = images[i];
+    img.alt = `Project ${i+1}`;
+    card.appendChild(img);
+    carousel3d.appendChild(card);
+  }
+}
+createCards();
 
-    nextBtn.addEventListener('click', () => { currentIndex = (currentIndex + 1) % cardCount; angle -= theta; rotateCarousel(); });
-    prevBtn.addEventListener('click', () => { currentIndex = (currentIndex - 1 + cardCount) % cardCount; angle += theta; rotateCarousel(); });
+function rotateCarousel(angle) {
+  currentAngle = (currentAngle + angle) % 360;
+  carousel3d.style.transform = `translateZ(-300px) rotateY(${currentAngle}deg)`;
+  updateActiveCard();
+}
 
-    let autoRotate = setInterval(() => { nextBtn.click(); }, 3000);
+function updateActiveCard() {
+  const cards = carousel3d.querySelectorAll('.card');
+  const normalizedAngle = ((currentAngle % 360) + 360) % 360;
+  const index = Math.round(normalizedAngle / theta) % cardCount;
+  cards.forEach((card, i) => {
+    card.classList.toggle('active', i === (cardCount - index) % cardCount);
+  });
+}
 
-    // Drag support
-    let startX, currentX, dragging = false;
-    carousel.addEventListener('pointerdown', e => { startX = e.clientX; dragging = true; carousel.style.cursor = 'grabbing'; clearInterval(autoRotate); });
-    carousel.addEventListener('pointermove', e => { if(!dragging) return; currentX = e.clientX; let diff = currentX - startX; if(Math.abs(diff) > 20){ if(diff>0) prevBtn.click(); else nextBtn.click(); startX=currentX; } });
-    carousel.addEventListener('pointerup', e => { dragging=false; carousel.style.cursor='grab'; autoRotate = setInterval(()=>nextBtn.click(),3000); });
-    carousel.addEventListener('pointerleave', e => { if(dragging){ dragging=false; carousel.style.cursor='grab'; autoRotate = setInterval(()=>nextBtn.click(),3000); } });
+// Rotation automatique : angle par tick (plus petit angle pour rotation douce)
+const autoRotateSpeed = 0.3; // degrés par intervalle (ajuste la vitesse ici)
+let autoRotateInterval = null;
 
+// Démarrer la rotation automatique
+function startAutoRotate() {
+  if(autoRotateInterval) return; // déjà en rotation
+  autoRotateInterval = setInterval(() => {
+    rotateCarousel(autoRotateSpeed);
+  }, 50); // toutes les 50ms, tu peux ajuster pour plus ou moins fluide
+}
+
+// Arrêter la rotation automatique
+function stopAutoRotate() {
+  if(autoRotateInterval) {
+    clearInterval(autoRotateInterval);
+    autoRotateInterval = null;
+  }
+}
+
+// Init auto-rotation
+startAutoRotate();
+
+// Gestion des boutons prev/next (tu peux garder ou enlever si tu veux)
+document.getElementById('prevBtn').addEventListener('click', () => {
+  stopAutoRotate();
+  rotateCarousel(theta);
+  startAutoRotate();
+});
+document.getElementById('nextBtn').addEventListener('click', () => {
+  stopAutoRotate();
+  rotateCarousel(-theta);
+  startAutoRotate();
+});
+
+// Touch support for carousel
+let startX = 0;
+let isDragging = false;
+
+carousel3d.parentElement.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+  isDragging = true;
+  stopAutoRotate(); // stop rotation automatique pendant glisse
+});
+
+carousel3d.parentElement.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  let diffX = e.touches[0].clientX - startX;
+  if (Math.abs(diffX) > 15) {  // sensibilité
+    rotateCarousel(diffX > 0 ? theta : -theta);
+    startX = e.touches[0].clientX;
+  }
+});
+
+carousel3d.parentElement.addEventListener('touchend', () => {
+  isDragging = false;
+  startAutoRotate(); // relance rotation auto après toucher
+});
   </script>
+  <script>
+  // On sélectionne le bouton par son id
+  const discoverBtn = document.getElementById('discoverallprjctsBtn');
+
+  // On ajoute un "écouteur" pour l'événement clic sur ce bouton
+  discoverBtn.addEventListener('click', () => {
+    // Ici, tu mets le lien de la page vers laquelle tu veux aller
+    window.location.href = 'all projects.html';
+  });
+</script>
 </body>
 </html>
