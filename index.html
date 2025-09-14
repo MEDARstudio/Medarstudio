@@ -716,11 +716,16 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
+  const checkedServices = [...form.querySelectorAll('input[name="services"]:checked')];
+  if (checkedServices.length === 0) {
+    alert('Please select at least one service.');
+    return;
+  }
+
   const formData = new FormData(form);
 
-  // ✅ FormSubmit endpoint (masked email ID)
+  // ✅ Your endpoints
   const formsubmitURL = "https://formsubmit.co/4942efec8ebfb3559e74c9c48458d660";
-  // ✅ Formspree endpoint (ton ID fourni)
   const formspreeURL = "https://formspree.io/f/meokznrv";
 
   try {
@@ -746,6 +751,7 @@ form.addEventListener('submit', async (e) => {
   }
 });
 </script>
+
       
     </section>
   </main>
@@ -1056,5 +1062,6 @@ carousel3d.parentElement.addEventListener('touchend', () => {
 </script>
 </body>
 </html>
+
 
 
